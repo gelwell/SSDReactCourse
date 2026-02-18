@@ -1,0 +1,2 @@
+       // This is a comment in JavaScript
+        console.log('Hello, SuperSimpleDev!'); 
