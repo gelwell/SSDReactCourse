@@ -49,11 +49,11 @@
         return (
           <div>
 
-              {sender === 'bot' && (
+              {sender.toLowerCase() === 'bot' && (
                 <img src=".\robot.png" alt="Chatbot GIF" width="30" />
               )}
               <strong>{sender}:</strong> {message}                   
-              {sender === 'user' && (
+              {sender.toLowerCase()  === 'user' && (
                 <img src=".\user.png" alt="ChatUser GIF" width="30" />
               )}
 
@@ -62,13 +62,39 @@
 
     }
 
+      
+
+
+
+
     function  App() {
+      const [messages, setMessages] = React.useState([]);
+      const chatMessages = [
+        { message: "Hello Chatbot", sender: "User" },
+        { message: "!!WHAT!!!", sender: "Bot" },
+        { message: "Shhhhhsh!!", sender: "User" },
+        { message: "..what..", sender: "Bot" }
+      ];  
+
+      // const chatMsgComponenets = 
+      chatMessages.map((chatMessage, index) => {
+          // console.log(`Message ${index + 1}: ${chatMessage.message} (Sender: ${chatMessage.sender})`);
+          return (
+            <ChatMsg key={chatMessage.index} message={chatMessage.message} sender={chatMessage.sender} />
+          );
+        }
+      ); 
+
       return (
         <>             
           <p>IM Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {Date()}</p>
           <ChatInput />
-          <ChatMsg message="Hello Chatbot" sender="user"/>
-          <ChatMsg message="WHAT!!" sender="bot"/>
+          {chatMessages.map((chatMessage, index) => {
+            // console.log(`Message ${index + 1}: ${chatMessage.message} (Sender: ${chatMessage.sender})`);
+            return (
+              <ChatMsg key={index} message={chatMessage.message} sender={chatMessage.sender} />
+            );
+          })} 
         </>            
       );
     }
