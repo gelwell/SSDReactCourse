@@ -63,11 +63,7 @@
     }
 
       
-
-
-
-
-    function  App() {
+    function ChatMessages() {
       const [messages, setMessages] = React.useState([]);
       const chatMessages = [
         { message: "Hello Chatbot", sender: "User" },
@@ -87,8 +83,6 @@
 
       return (
         <>             
-          <p>IM Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {Date()}</p>
-          <ChatInput />
           {chatMessages.map((chatMessage, index) => {
             // console.log(`Message ${index + 1}: ${chatMessage.message} (Sender: ${chatMessage.sender})`);
             return (
@@ -97,6 +91,48 @@
           })} 
         </>            
       );
+    }
+
+
+
+    function  App() {
+      // const [messages, setMessages] = React.useState([]);
+      // const chatMessages = [
+      //   { message: "Hello Chatbot", sender: "User" },
+      //   { message: "!!WHAT!!!", sender: "Bot" },
+      //   { message: "Shhhhhsh!!", sender: "User" },
+      //   { message: "..what..", sender: "Bot" }
+      // ];  
+
+      // // const chatMsgComponenets = 
+      // chatMessages.map((chatMessage, index) => {
+      //     // console.log(`Message ${index + 1}: ${chatMessage.message} (Sender: ${chatMessage.sender})`);
+      //     return (
+      //       <ChatMsg key={chatMessage.index} message={chatMessage.message} sender={chatMessage.sender} />
+      //     );
+      //   }
+      // ); 
+
+      // return (
+      //   <>             
+      //     <p>IM Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {Date()}</p>
+      //     <ChatInput />
+      //     {chatMessages.map((chatMessage, index) => {
+      //       // console.log(`Message ${index + 1}: ${chatMessage.message} (Sender: ${chatMessage.sender})`);
+      //       return (
+      //         <ChatMsg key={index} message={chatMessage.message} sender={chatMessage.sender} />
+      //       );
+      //     })} 
+      //   </>            
+      // );
+      return (
+        <div>
+          <h1>Chatbot</h1>
+          <p>IM Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {Date()}</p>
+          <ChatInput />
+          <ChatMessages />
+        </div>
+      );  
     }
  
       const container = document.querySelector('.js-container');
