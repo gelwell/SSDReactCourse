@@ -47,16 +47,20 @@
       // }
      
         return (
-          <div>
+          <div>              
+              {sender.toLowerCase() === 'bot' && 
+                (<p align="left" >
+                  <img src=".\robot.png" alt="Chatbot GIF" width="30"/>
+                  <strong>{sender}:</strong> {message} 
+                </p>)
+              }
 
-              {sender.toLowerCase() === 'bot' && (
-                <img src=".\robot.png" alt="Chatbot GIF" width="30" />
-              )}
-              <strong>{sender}:</strong> {message}                   
-              {sender.toLowerCase()  === 'user' && (
-                <img src=".\user.png" alt="ChatUser GIF" width="30" />
-              )}
-
+              {sender.toLowerCase() === 'user' && 
+                (<p align="right" >
+                  <strong>{sender}:</strong> {message} 
+                  <img src=".\user.png" alt="ChatUser GIF" width="30" />
+                 </p>)
+              }
           </div>
         );
 
@@ -64,67 +68,40 @@
 
       
     function ChatMessages() {
-      const [messages, setMessages] = React.useState([]);
-      const chatMessages = [
-        { message: "Hello Chatbot", sender: "User" },
-        { message: "!!WHAT!!!", sender: "Bot" },
-        { message: "Shhhhhsh!!", sender: "User" },
-        { message: "..what..", sender: "Bot" }
-      ];  
+      //const [messages, setMessages] = 
+      const chatArray = 
+      React.useState(
+        [
+          { message: "Hello Chatbot", sender: "User" },
+          { message: "!!WHAT!!!", sender: "Bot" },
+          { message: "Shhhhhsh!!", sender: "User" },
+          { message: "..what..", sender: "Bot" }
+        ]
+        );
+      
+      const chatMessages = chatArray[0];
+      const setChatMessages = chatArray[1];
+      
+      function sendMessage() {
+        const newMessage = { message: "New message from User", sender: "User", id: crypto.randomUUID() };
+        setChatMessages([...chatMessages, newMessage] );
+      }
 
-      // const chatMsgComponenets = 
-      chatMessages.map((chatMessage, index) => {
-          // console.log(`Message ${index + 1}: ${chatMessage.message} (Sender: ${chatMessage.sender})`);
-          return (
-            <ChatMsg key={chatMessage.index} message={chatMessage.message} sender={chatMessage.sender} />
-          );
-        }
-      ); 
+      console.log(chatMessages);
+      console.log(setChatMessages);
 
       return (
-        <>             
-          {chatMessages.map((chatMessage, index) => {
-            // console.log(`Message ${index + 1}: ${chatMessage.message} (Sender: ${chatMessage.sender})`);
-            return (
-              <ChatMsg key={index} message={chatMessage.message} sender={chatMessage.sender} />
-            );
-          })} 
-        </>            
-      );
+        <div>
+          {chatMessages.map((chatMessage, index) => (
+            <ChatMsg key={index} message={chatMessage.message} sender={chatMessage.sender} />
+          ))} 
+          <button onClick={sendMessage}>Send New Message</button>
+        </div>
+      );      
     }
 
 
-
     function  App() {
-      // const [messages, setMessages] = React.useState([]);
-      // const chatMessages = [
-      //   { message: "Hello Chatbot", sender: "User" },
-      //   { message: "!!WHAT!!!", sender: "Bot" },
-      //   { message: "Shhhhhsh!!", sender: "User" },
-      //   { message: "..what..", sender: "Bot" }
-      // ];  
-
-      // // const chatMsgComponenets = 
-      // chatMessages.map((chatMessage, index) => {
-      //     // console.log(`Message ${index + 1}: ${chatMessage.message} (Sender: ${chatMessage.sender})`);
-      //     return (
-      //       <ChatMsg key={chatMessage.index} message={chatMessage.message} sender={chatMessage.sender} />
-      //     );
-      //   }
-      // ); 
-
-      // return (
-      //   <>             
-      //     <p>IM Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {Date()}</p>
-      //     <ChatInput />
-      //     {chatMessages.map((chatMessage, index) => {
-      //       // console.log(`Message ${index + 1}: ${chatMessage.message} (Sender: ${chatMessage.sender})`);
-      //       return (
-      //         <ChatMsg key={index} message={chatMessage.message} sender={chatMessage.sender} />
-      //       );
-      //     })} 
-      //   </>            
-      // );
       return (
         <div>
           <h1>Chatbot</h1>
