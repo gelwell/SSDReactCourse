@@ -19,26 +19,36 @@
       const [inputValue, setInputValue] = React.useState(''); // [state, setState]
 
       function handleInputClick(event) {
-        event.target.style.backgroundColor = "yellow";
+        //event.target.style.backgroundColor = "yellow";
         setInputValue(event.target.value);
-        console.log(event.target.value);
+        console.log(event.target.value);           
       } 
 
       function sendMessage( ) {
         //console.log("Sending message: " + inputValue);
-        const newMessage = { message: "New message from User", sender: "User", id: crypto.randomUUID() };
-        setChatMessages([...chatMessages, newMessage] );        
+        //const newMessage = { message: "New message from User", sender: "User", id: crypto.randomUUID() };
+        const newMessage = { message: inputValue, sender: "User", id: crypto.randomUUID() };
+        //console.log(inputValue + " --- " + newMessage.message);
+        setChatMessages([...chatMessages, newMessage] );  
+        //event.target.style.backgroundColor = "white";     
+        setInputValue('');
+         
+        
       }
 
       return (
         <div>
-          <input type="text" 
+          <input id="chat-input" type="text" 
             placeholder="Type your message here..." 
             size="50" 
             onClick={handleInputClick}
+            //onChange={(e) => setInputValue(e.target.value)}
+            onChange={(e) => { setInputValue(e.target.value); e.target.style.backgroundColor = "yellow"; }}
+            value={inputValue}
           />
           <button
-            onClick={sendMessage}  
+            //onClick={sendMessage}  
+            onClick={(e) => { sendMessage(); document.getElementById('chat-input').style.backgroundColor = "white"; }}  
           >Send
           </button>
 
@@ -67,20 +77,6 @@
 
       
     function ChatMessages({ chatMessages }) {
-      // // const chatArray = 
-      // const [chatMessages, setChatMessages] = 
-      //   React.useState(
-      //     [
-      //       { message: "Hello Chatbot", sender: "User" },
-      //       { message: "!!WHAT!!!", sender: "Bot" },
-      //       { message: "Shhhhhsh!!", sender: "User" },
-      //       { message: "..what..", sender: "Bot" }
-      //     ]
-      //     );
-      
-      // console.log(chatMessages);
-      // console.log(setChatMessages);
-
       return (
         <div>
           {chatMessages.map((chatMessage, index) => (
@@ -98,10 +94,10 @@
       const [chatMessages, setChatMessages] = 
         React.useState(
           [
-            { message: "Hello Chatbot", sender: "User" },
-            { message: "!!WHAT!!!", sender: "Bot" },
-            { message: "Shhhhhsh!!", sender: "User" },
-            { message: "..what..", sender: "Bot" }
+            { message: "Hello Chatbot", sender: "User", id: crypto.randomUUID() },
+            { message: "!!WHAT!!!", sender: "Bot", id: crypto.randomUUID() },
+            { message: "Shhhhhsh!!", sender: "User", id: crypto.randomUUID() },
+            { message: "..what..", sender: "Bot", id: crypto.randomUUID()  }
           ]
           );
 
