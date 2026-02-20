@@ -12,6 +12,8 @@
    -->
     <script src="https://unpkg.com/supersimpledev/react.js"></script>
     <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
+
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
 
@@ -25,15 +27,14 @@
       } 
 
       function sendMessage( ) {
-        //console.log("Sending message: " + inputValue);
-        //const newMessage = { message: "New message from User", sender: "User", id: crypto.randomUUID() };
         const newMessage = { message: inputValue, sender: "User", id: crypto.randomUUID() };
-        //console.log(inputValue + " --- " + newMessage.message);
         setChatMessages([...chatMessages, newMessage] );  
-        //event.target.style.backgroundColor = "white";     
+        const botResponse = Chatbot.getResponse(inputValue);
+        //console.log("Bot response: " + botResponse);
+        const newBotMessage = { message: botResponse, sender: "Bot", id: crypto.randomUUID() };
+        setChatMessages([...chatMessages, newMessage, newBotMessage] );  
         setInputValue('');
-         
-        
+                
       }
 
       return (
@@ -59,7 +60,7 @@
     function ChatMsg({message, sender}) {   
         return (
           <div>              
-              {sender.toLowerCase() === 'bot' && 
+              {(sender.toLowerCase() === 'bot' || sender.toLowerCase() === 'robot') &&
                 (<p align="left" >
                   <img src=".\robot.png" alt="Chatbot GIF" width="30"/>
                   <strong>{sender}:</strong> {message} 
