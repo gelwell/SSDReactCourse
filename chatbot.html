@@ -15,7 +15,7 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
 
-    function ChatInput() {
+    function ChatInput({ chatMessages, setChatMessages }) {
       const [inputValue, setInputValue] = React.useState(''); // [state, setState]
 
       function handleInputClick(event) {
@@ -66,29 +66,20 @@
     }
 
       
-    function ChatMessages() {
-      // const chatArray = 
-      const [chatMessages, setChatMessages] = 
-      React.useState(
-        [
-          { message: "Hello Chatbot", sender: "User" },
-          { message: "!!WHAT!!!", sender: "Bot" },
-          { message: "Shhhhhsh!!", sender: "User" },
-          { message: "..what..", sender: "Bot" }
-        ]
-        );
+    function ChatMessages({ chatMessages }) {
+      // // const chatArray = 
+      // const [chatMessages, setChatMessages] = 
+      //   React.useState(
+      //     [
+      //       { message: "Hello Chatbot", sender: "User" },
+      //       { message: "!!WHAT!!!", sender: "Bot" },
+      //       { message: "Shhhhhsh!!", sender: "User" },
+      //       { message: "..what..", sender: "Bot" }
+      //     ]
+      //     );
       
-      // const [chatMessages, setChatMessages] = chatArray;
-      // const chatMessages = chatArray[0];
-      // const setChatMessages = chatArray[1];
-      
-      // function sendMessage() {
-      //   const newMessage = { message: "New message from User", sender: "User", id: crypto.randomUUID() };
-      //   setChatMessages([...chatMessages, newMessage] );
-      // }
-
-      console.log(chatMessages);
-      console.log(setChatMessages);
+      // console.log(chatMessages);
+      // console.log(setChatMessages);
 
       return (
         <div>
@@ -102,12 +93,27 @@
 
 
     function  App() {
+
+      // const chatArray = 
+      const [chatMessages, setChatMessages] = 
+        React.useState(
+          [
+            { message: "Hello Chatbot", sender: "User" },
+            { message: "!!WHAT!!!", sender: "Bot" },
+            { message: "Shhhhhsh!!", sender: "User" },
+            { message: "..what..", sender: "Bot" }
+          ]
+          );
+
       return (
         <div>
           <h1>Chatbot</h1>
           <p>IM Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {Date()}</p>
-          <ChatInput />
-          <ChatMessages />
+          <ChatInput 
+              chatMessages={chatMessages} 
+              setChatMessages={setChatMessages} 
+          />
+          <ChatMessages chatMessages={chatMessages} />  
         </div>
       );  
     }
