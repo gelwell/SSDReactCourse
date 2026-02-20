@@ -7,7 +7,8 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        margin: 20px;
+        margin-top: 0px;
+        margin-bottom: 0px;
       }
       #chat-input {
         padding: 10px;
@@ -36,6 +37,9 @@
         margin: 0 auto;
         margin-left: auto;
         margin-right: auto;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
       } 
       .chat-bot-message {
         display: flex;
@@ -66,6 +70,22 @@
         background-color: lightgray;
         align-items: start;
       } 
+      .chatuser-gif {
+        width: 30px;
+        margin-right: 10px;
+      }
+      .chatbot-gif {
+        width: 30px;
+        margin-left: 10px;
+      }
+      .chat-messages-container {
+        flex-grow: 1;
+        overflow-y: auto;
+        margin-top: 20px;
+        padding: 10px;
+        scrollbar-width: thin;
+      }
+
 
     </style>
   </head>
@@ -126,42 +146,39 @@
 
     function ChatMsg({message, sender}) {   
         return (
-          // <div>              
-          //     {(sender.toLowerCase() === 'bot' || sender.toLowerCase() === 'robot') &&
-          //       (<p align="left" >
-          //         <img src=".\robot.png" alt="Chatbot GIF" width="30"/>
-          //         <strong>{sender}:</strong> {message} 
-          //       </p>)
-          //     }
-          //     {sender.toLowerCase() === 'user' && 
-          //       (<p align="right" >
-          //         <strong>{sender}:</strong> {message} 
-          //         <img src=".\user.png" alt="ChatUser GIF" width="30" />
-          //        </p>)
-          //     }
-          // </div>
-
           <div className={
                 (sender.toLowerCase() === 'bot' || sender.toLowerCase() === 'robot')
                 ? 'chat-bot-message' 
                 : 'chat-user-message'
           }>              
               {(sender.toLowerCase() === 'bot' || sender.toLowerCase() === 'robot') &&
-                  <img src=".\robot.png" alt="Chatbot GIF" width="30"/>                
+                  <img src=".\robot.png" alt="Chatbot GIF" className="chatbot-gif" />                
               }
               <div className="message-content">
                 <strong>{sender}:</strong> {message} 
               </div>
               {sender.toLowerCase() === 'user' && 
-                <img src=".\user.png" alt="ChatUser GIF" width="30" /> 
+                <img src=".\user.png" alt="ChatUser GIF" className="chatuser-gif"  /> 
               }
           </div>          
         );
     }
   
     function ChatMessages({ chatMessages }) {
+      // React.useEffect(() => {
+      //   const chatContainer = document.querySelector('.chat-messages-container');
+      //   chatContainer.scrollTop = chatContainer.scrollHeight;
+      // }, [chatMessages]); 
+      const chatMessagesEndRef = React.useRef(null);
+      React.useEffect(() => {
+        if (chatMessagesEndRef.current) {
+          chatMessagesEndRef.current.scrollTop = chatMessagesEndRef.current.scrollHeight;
+        }
+      }, [chatMessages]);
+
+
       return (
-        <div className="chat-messages-container">
+        <div className="chat-messages-container" ref={chatMessagesEndRef}>
           {chatMessages.map((chatMessage, index) => (
             <ChatMsg key={index} message={chatMessage.message} sender={chatMessage.sender} />
           ))} 
@@ -179,19 +196,25 @@
             { message: "Hello Chatbot", sender: "User", id: crypto.randomUUID() },
             { message: "!!WHAT!!!", sender: "Bot", id: crypto.randomUUID() },
             { message: "Shhhhhsh!!", sender: "User", id: crypto.randomUUID() },
-            { message: "..what..", sender: "Bot", id: crypto.randomUUID()  }
+            { message: "You Shhhhhsh!!", sender: "Bot", id: crypto.randomUUID() },
+            { message: "YOU Shhhhhsh!!", sender: "User", id: crypto.randomUUID() },
+            { message: "...what??", sender: "Bot", id: crypto.randomUUID()  },
+            { message: "What do you mean What?!!", sender: "User", id: crypto.randomUUID() },
+            { message: "I forgot what!", sender: "Bot", id: crypto.randomUUID() }
           ]
           );
 
       return (
         <div className="app-container">
           <h1>Chatbot</h1>
-          <p>IM Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {Date()}</p>
+           <p>Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {Date()}</p>
+
+          <ChatMessages chatMessages={chatMessages} />  
+
           <ChatInput 
               chatMessages={chatMessages} 
               setChatMessages={setChatMessages} 
-          />
-          <ChatMessages chatMessages={chatMessages} />  
+          />          
         </div>
       );  
     }
