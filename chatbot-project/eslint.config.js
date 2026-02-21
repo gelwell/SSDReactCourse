@@ -28,6 +28,9 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      'react/prop-types': 'off',
+       // 'react/react-in-jsx-scope': 'off', // Not needed with React 17+ and new JSX transform
+       // 'react/jsx-uses-react': 'off', // Not needed with React 17+ and new JSX transform 
     },
   },
 ]
