@@ -1,0 +1,37 @@
+      .chat-bot-message {
+        display: flex;
+        justify-content: flex-start;
+        text-align: left;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+      } 
+      .chat-user-message {
+        display: flex;
+        justify-content: flex-end;
+        text-align: right;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        align-items: start;
+      }
+      .message-content {
+        max-width: 70%;
+        word-wrap: break-word;
+        padding: 10px 20px;
+        border-radius: 10px;       
+      } 
+      .chat-bot-message  {
+        display: flex;
+        background-color: lightgray;
+        align-items: start;
+      } 
+      .chatuser-gif {
+        width: 30px;
+        margin-right: 10px;
+      }
+      .chatbot-gif {
+        width: 30px;
+        margin-left: 10px;
+      }

@@ -1,0 +1,11 @@
+      .chat-messages-container {
+        flex-grow: 1;
+        overflow-y: auto;
+        margin-top: 20px;
+        padding: 10px;
+        scrollbar-width: thin;
+      }
+        .chat-messages-container::-webkit-scrollbar {
+            width: 8px;
+        }    
+        
